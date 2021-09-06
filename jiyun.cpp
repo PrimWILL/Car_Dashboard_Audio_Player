@@ -23,7 +23,9 @@ DigitalOut led1(LED1);
 
 Serial pc(USBTX, USBRX);
 
-volatile int sensor = 0;
+Ticker myTicker;
+
+volatile int human_sensor = 0;
 
 void get_temp_humid(uint16_t* temp, uint16_t* humid) {
     float h = 0.0f, c = 0.0f;
@@ -51,7 +53,7 @@ void task_myTicker(){
     get_temp_humid(&temp, &humid);
 
     myGUI.clearDisplay(); // claer LCD display 
-    setTextCursor(0, 0);
+    myGUI.setTextCursor(0, 0);
 
     myGUI.printf("Temp: %u Humid: %u\r\n", temp, humid);
     myGUI.display();
