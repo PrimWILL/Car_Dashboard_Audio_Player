@@ -39,6 +39,7 @@ DigitalIn motion(D5);
 
 Timeout myTimeout;
 Ticker myTicker;
+Ticker myTicker2;
 
 volatile int human_sensor = 0;
 
@@ -63,7 +64,7 @@ void task_myTicker2();
 int main(){   
 	pc.baud(9600);
 	myTicker.attach(&task_myTicker, 0.5);
-	//myTicker.attach(&task_myTicker2, 1);
+	myTicker2.attach(&task_myTicker2, 1);
 
 	while(1){
 		if(!button1){
