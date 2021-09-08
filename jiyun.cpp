@@ -65,14 +65,14 @@ void task_ledTicker();
 
 void BUTTON1_Interrupt(){
 	pc.printf("button1 is pressed!\r\n");
-    wait(0.5);
+    wait(1);
     button_num = 1;
     playing = 0;
 }
 
 void BUTTON2_Interrupt(){
 	pc.printf("button2 is pressed!\r\n");
-    wait(0.5);
+    wait(1);
     button_num = 2;		
 
     if (playing == 1) {
@@ -82,7 +82,7 @@ void BUTTON2_Interrupt(){
 
 void BUTTON3_Interrupt(){
 	pc.printf("button3 is pressed!\r\n");
-    wait(0.5);
+    wait(1);
     button_num = 3;
     playing = 0;
 }
@@ -155,7 +155,7 @@ bool detect_human(int* human_sensor) {
 void task_myTimeout(){
 	pc.printf("timeout!");
 	playing=0;
-	sound = 0;
+	sound = 0; 0;
 }
 
 void task_ledTicker(){
@@ -191,35 +191,50 @@ void Jingle_Bell(){
 		sound.period(1/(double)jingle_bell[i]);
 		sound=0.5;
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) {
+            sound = 0;
+            return;
+        }
 	}
 	wait(0.35);
 
 	for(int i=3; i<6; i++){
 		sound.period(1/(double)jingle_bell[i]);
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	wait(0.35);
 	
 	for(int i=6; i<11; i++){
 		sound.period(1/(double)jingle_bell[i]);
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	wait(0.5);
 	
 	for(int i=11; i<23; i++){
 		sound.period(1/(double)jingle_bell[i]);
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	wait(0.3);
 	
 	for(int i=23; i<26; i++){
 		sound.period(1/(double)jingle_bell[i]);
 		wait(0.5);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	playing=0;
 	return;
@@ -232,42 +247,60 @@ void Little_Star(){
 		sound.period(1/(double)little_star[i]);
 		sound=0.5;
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	wait(0.35);
 
 	for(int i=7; i<14; i++){
 		sound.period(1/(double)little_star[i]);
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	wait(0.35);
 	
 	for(int i=14; i<21; i++){
 		sound.period(1/(double)little_star[i]);
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	wait(0.35);
 	
 	for(int i=21; i<28; i++){
 		sound.period(1/(double)little_star[i]);
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	wait(0.35);
 	
 	for(int i=28; i<35; i++){
 		sound.period(1/(double)little_star[i]);
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	wait(0.35);
 	
 	for(int i=35; i<43; i++){
 		sound.period(1/(double)little_star[i]);
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	playing=0;
 	return;
@@ -280,28 +313,40 @@ void School_Bell(){
 		sound.period(1/(double)school_bell[i]);
 		sound=0.5;
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	wait(0.4);
 
 	for(int i=7; i<12; i++){
 		sound.period(1/(double)school_bell[i]);
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	wait(0.5);
 	
 	for(int i=12; i<19; i++){
 		sound.period(1/(double)school_bell[i]);
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	wait(0.4);
 	
 	for(int i=19; i<25; i++){
 		sound.period(1/(double)school_bell[i]);
 		wait(0.3);
-		if(playing==0) return;
+		if(playing==0) { 
+            sound = 0; 
+            return; 
+        }
 	}
 	playing=0;
 	return;
