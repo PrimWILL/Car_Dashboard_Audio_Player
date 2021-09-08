@@ -94,9 +94,7 @@ int main(){
 			mt.stop();
 			Music_Start();
 		}
-		if(!button2){
-			Music_Start();
-		}
+
 		if(!button3){
 			pc.printf("button 3 is pressed!\r\n");
 			music++;
