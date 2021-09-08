@@ -4,13 +4,13 @@
 #include "motordriver.h"
 #include <stdio.h>
 
-#define C 262
-#define D 294
-#define E 330
-#define F 349
-#define G 392
-#define A 440
-#define B 494
+#define C 523.25
+#define D 587.32
+#define E 659.25
+#define F 698.25
+#define G 783.99
+#define A 880.0
+#define B 987.76
 
 Serial pc(USBTX, USBRX);
 
@@ -18,7 +18,7 @@ InterruptIn button1 (PA_14);
 InterruptIn button2 (PB_7);
 InterruptIn button3 (PC_4);
  
-Motor mt(D11, PC_0);
+Motor mt(D11, PC_8);
 PwmOut sound(PC_9);
 DigitalOut myled(LED1);
 
@@ -67,7 +67,6 @@ void BUTTON1_Interrupt(){
 	pc.printf("button1 is pressed!\r\n");
     button_num = 1;
     playing = 0;
-	pc.printf("button1 press~~~~~~!\r\n");
 }
 
 void BUTTON2_Interrupt(){
@@ -80,14 +79,12 @@ void BUTTON2_Interrupt(){
 	else {
 		playing = 0;
 	}
-	pc.printf("button2 press~~~~~~!\r\n");
 }
 
 void BUTTON3_Interrupt(){
 	pc.printf("button3 is pressed!\r\n");
     button_num = 3;
     playing = 0;
-	pc.printf("button3 press~~~~~~!\r\n");
 }
 
 int main(){
@@ -100,26 +97,21 @@ int main(){
 
 
     while(1){
-        pc.printf("playing: %d\r\n", playing);
 		if(button_num == 1){
 			button_num = 0;
-            pc.printf("button111111111111111\r\n");
             playing = 1;
             music--;
 
             if (music < 0) 
                 music += 3;
             
-            // button_num = 0;
-
-            mt.backward(0.2);
+            mt.backward(0.15);
             wait(0.8);
             mt.stop();
             Music_Start();
 		}
 
 		if(button_num == 2) {
-            pc.printf("button2222222222222\r\n");
             button_num = 0;
 			if(playing == 0) {
 				pc.printf("music is stop now, start music!\r\n");
@@ -130,13 +122,11 @@ int main(){
 
 		if(button_num == 3){
 			button_num = 0;
-            pc.printf("button3333333333333\r\n");
-            // button_num = 0;
 
             playing = 1;
             music++;
             
-            mt.forward(0.2);
+            mt.forward(0.15);
             wait(0.8);
             mt.stop();	
             Music_Start();			
@@ -164,7 +154,7 @@ bool detect_human(int* human_sensor) {
 }
 
 void task_myTimeout(){
-	pc.printf("timeout!");
+	pc.printf("Music is stopped!\r\n");
 	playing=-1;
 	sound = 0;
 }
@@ -248,6 +238,7 @@ void Jingle_Bell(){
         }
 	}
 	playing=-1;
+	sound = 0;
 	return;
 }
 	
@@ -314,6 +305,7 @@ void Little_Star(){
         }
 	}
 	playing=-1;
+	sound = 0;
 	return;
 }
 
@@ -360,5 +352,6 @@ void School_Bell(){
         }
 	}
 	playing=-1;
+	sound = 0;
 	return;
 }
