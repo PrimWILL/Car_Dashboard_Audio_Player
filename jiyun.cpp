@@ -65,26 +65,29 @@ void task_ledTicker();
 
 void BUTTON1_Interrupt(){
 	pc.printf("button1 is pressed!\r\n");
-    wait(1);
     button_num = 1;
     playing = 0;
+	pc.printf("button1 press~~~~~~!\r\n");
 }
 
 void BUTTON2_Interrupt(){
 	pc.printf("button2 is pressed!\r\n");
-    wait(1);
     button_num = 2;		
 
     if (playing == 1) {
         myTimeout.attach(&task_myTimeout, 5);
     }
+	else {
+		playing = 0;
+	}
+	pc.printf("button2 press~~~~~~!\r\n");
 }
 
 void BUTTON3_Interrupt(){
 	pc.printf("button3 is pressed!\r\n");
-    wait(1);
     button_num = 3;
     playing = 0;
+	pc.printf("button3 press~~~~~~!\r\n");
 }
 
 int main(){
@@ -95,31 +98,41 @@ int main(){
     button2.rise(&BUTTON2_Interrupt);
     button3.rise(&BUTTON3_Interrupt);
 
+
     while(1){
+        pc.printf("playing: %d\r\n", playing);
 		if(button_num == 1){
+			button_num = 0;
+            pc.printf("button111111111111111\r\n");
             playing = 1;
             music--;
 
-            if (music <= 0) 
+            if (music < 0) 
                 music += 3;
+            
+            // button_num = 0;
 
             mt.backward(0.2);
             wait(0.8);
             mt.stop();
             Music_Start();
-
-            button_num = 0;
 		}
 
 		if(button_num == 2) {
-			if(playing==0) {
+            pc.printf("button2222222222222\r\n");
+            button_num = 0;
+			if(playing == 0) {
 				pc.printf("music is stop now, start music!\r\n");
+                playing = 1;
 				Music_Start();
 			}
-            button_num = 0;
 		}
 
 		if(button_num == 3){
+			button_num = 0;
+            pc.printf("button3333333333333\r\n");
+            // button_num = 0;
+
             playing = 1;
             music++;
             
@@ -127,8 +140,6 @@ int main(){
             wait(0.8);
             mt.stop();	
             Music_Start();			
-
-            button_num = 0;
 		}		
 	}
 }
@@ -154,8 +165,8 @@ bool detect_human(int* human_sensor) {
 
 void task_myTimeout(){
 	pc.printf("timeout!");
-	playing=0;
-	sound = 0; 0;
+	playing=-1;
+	sound = 0;
 }
 
 void task_ledTicker(){
@@ -178,7 +189,7 @@ void task_ledTicker(){
 }
 
 void Music_Start(){
-	music%=3;
+	music %= 3;
 	if(music == 0) School_Bell();
 	else if(music == 1) Little_Star();
 	else if(music == 2) Jingle_Bell();
@@ -186,7 +197,7 @@ void Music_Start(){
 
 void Jingle_Bell(){
 	playing=1;
-	pc.printf("2 : Jingble bell\r\n");
+	pc.printf("2 : Jingle bell\r\n");
 	for(int i=0; i<3; i++){
 		sound.period(1/(double)jingle_bell[i]);
 		sound=0.5;
@@ -236,13 +247,13 @@ void Jingle_Bell(){
             return; 
         }
 	}
-	playing=0;
+	playing=-1;
 	return;
 }
 	
 void Little_Star(){
 	playing=1;
-	pc.printf("1 : Little_Start\r\n");
+	pc.printf("1 : Little_Star\r\n");
 	for(int i=0; i<7; i++){
 		sound.period(1/(double)little_star[i]);
 		sound=0.5;
@@ -302,7 +313,7 @@ void Little_Star(){
             return; 
         }
 	}
-	playing=0;
+	playing=-1;
 	return;
 }
 
@@ -348,6 +359,6 @@ void School_Bell(){
             return; 
         }
 	}
-	playing=0;
+	playing=-1;
 	return;
 }
